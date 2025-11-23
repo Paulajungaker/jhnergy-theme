@@ -1,9 +1,9 @@
 {
   "sections": {
-    "landing": {
+    "landing-top": {
       "type": "landing",
       "settings": {}
     }
   },
-  "order": ["landing"]
+  "order": ["landing-top"]
 }
