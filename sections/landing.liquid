@@ -1,0 +1,159 @@
+<section class="section section--landing" id="landing-top">
+  <!-- HERO -->
+  <div class="landing-hero">
+    <div class="landing-hero__media">
+  {% if section.settings.hero_video != blank %}
+    <video 
+      class="landing-hero__video" 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      preload="auto"
+    >
+      <source src="{{ section.settings.hero_video }}" type="video/mp4">
+    </video>
+  {% elsif section.settings.hero_image %}
+    {{ section.settings.hero_image
+      | image_url: width: 2000
+      | image_tag: loading: 'lazy', class: 'landing-hero__img'
+    }}
+  {% endif %}
+</div>
+
+    <div class="landing-hero__overlay"></div>
+
+    <div class="container">
+      <div class="landing-hero__content">
+        {% if section.settings.hero_heading != blank %}
+          <h1 class="heading-1 landing-hero__title">
+            {{ section.settings.hero_heading }}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.hero_subheading != blank %}
+          <h3 class="heading-3 landing-hero__subtitle">
+            {{ section.settings.hero_subheading }}
+          </h3>
+        {% endif %}
+
+       <a href="#landing-audience" class="landing-hero__scroll" aria-label="Scroll down">
+  <img src="{{ 'chevron-down.png' | asset_url }}" alt="" class="scroll-icon">
+</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIENCE CARDS -->
+  <div class="landing-audience" id="landing-audience">
+    <div class="container">
+      <div class="landing-audience__grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'card' %}
+            <a class="landing-card" href="{{ block.settings.link }}">
+              <div class="landing-card__img-wrap">
+                {% if block.settings.image %}
+                  {{ block.settings.image
+                    | image_url: width: 900
+                    | image_tag: loading: 'lazy', class: 'landing-card__img'
+                  }}
+                {% endif %}
+
+                <div class="landing-card__content">
+                  {% if block.settings.title != blank %}
+                    <h2 class="heading-2 landing-card__title">
+                      {{ block.settings.title }}
+                    </h2>
+                  {% endif %}
+
+                  {% if block.settings.cta_label != blank %}
+                    <div class="landing-card__cta">
+                      <span class="btn--primary">
+                        {{ block.settings.cta_label }}
+                      </span>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Landing – Hero & Audience",
+  "settings": [
+  {
+    "type": "image_picker",
+    "id": "hero_image",
+    "label": "Hero background image"
+  },
+  {
+    "type": "url",
+    "id": "hero_video",
+    "label": "Hero background video (MP4 URL)",
+    "info": "Lämna tomt om du använder bild istället"
+  },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero heading",
+      "default": "Performance gear built for every body."
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Hero subheading",
+      "default": "Engineered for movement — designed for life."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_label",
+      "label": "Hero CTA label",
+      "default": "Shop now"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Audience card",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Men"
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Button text",
+          "default": "Shop now"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Landing – Hero & Audience",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
