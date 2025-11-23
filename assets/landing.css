@@ -10,10 +10,9 @@
 
 .landing-hero {
   position: relative;
-  border-radius: 0;
   overflow: hidden;
   min-height: 420px;
-  color: #fff;
+  color: var(--color-neutral-bg);
 }
 
 @media (min-width: 768px) {
@@ -24,7 +23,7 @@
 
 @media (min-width: 1024px) {
   .landing-hero {
-    min-height: 600px;
+    min-height: 640px;
   }
 }
 
@@ -39,7 +38,27 @@
   object-fit: cover;
 }
 
-/* mörk overlay över bilden */
+.landing-hero__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+@media (min-width: 768px) {
+  .landing-hero {
+    height: 500px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing-hero {
+    height: 600px;
+  }
+}
+
 .landing-hero__overlay {
   position: absolute;
   inset: 0;
@@ -51,53 +70,80 @@
   );
 }
 
-.landing-hero__content {
+.landing-hero .container {
   position: relative;
   z-index: 1;
+  height: 100%;
+}
 
-  max-width: 800px;
-  margin-inline: auto;
-  text-align: center;
-
+.landing-hero__content {
+  height: 400px;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-
-  padding-block: 96px;
+  align-items: center;
+  text-align: center;
   gap: var(--space-16);
+  margin-inline: auto;
+  margin: 0;
+}
+
+@media (min-width: 768px) {
+  .landing-hero__content {
+    height: 500px;
+    gap: var(--space-16);
+  }
 }
 
 @media (min-width: 1024px) {
   .landing-hero__content {
-    padding-block: 140px;
+    height: 600px;
+    gap: var(--space-16);
   }
 }
 
 .landing-hero__title {
   color: #fff;
+  margin: 0;
+  line-height: 1.1;
 }
 
 .landing-hero__subtitle {
   color: #fff;
+  max-width: 540px;
+  margin: 0;
+  line-height: 1.4;
 }
-
-/* liten pil ner */
 .landing-hero__scroll {
   margin-top: var(--space-16);
-  font-size: 20px;
+  display: inline-flex;
+  justify-content: center;
   opacity: 0.9;
 }
 
-/* ====== AUDIENCE CARDS (Men/Women/Supplements) ====== */
+.scroll-icon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
 
 .landing-audience {
-  padding-block: var(--space-48);
+  margin-top: var(--space-48);
+  padding-bottom: var(--space-48);
+}
+
+@media (min-width: 768px) {
+  .landing-audience {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    padding: 0;
+  }
 }
 
 @media (min-width: 1024px) {
   .landing-audience {
-    padding-block: var(--space-64);
+    margin-top: 120px;
+    margin-bottom: 120px;
   }
 }
 
@@ -108,8 +154,28 @@
 
 @media (min-width: 768px) {
   .landing-audience__grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 308px);
     gap: var(--space-24);
+    justify-items: center;
+    justify-content: center;
+  }
+
+  .landing-card:nth-child(3) {
+    grid-column: 1 / -1;
+    max-width: 308px;
+    margin-inline: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing-audience__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .landing-card:nth-child(3) {
+    grid-column: auto;
+    max-width: none;
+    margin-inline: 0;
   }
 }
 
@@ -118,52 +184,110 @@
   border-radius: var(--radius-16);
   overflow: hidden;
   background-color: var(--color-neutral-surface);
+  height: auto;
+  width: 100%;
+  max-width: 308px;
+}
+
+@media (min-width: 768px) {
+  .landing-card {
+    width: 308px;
+    height: 480px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing-card {
+    width: 100%;
+    aspect-ratio: 3/4;
+    height: auto;
+  }
 }
 
 .landing-card__img-wrap {
   position: relative;
+  height: 100%;
 }
 
 .landing-card__img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  height: auto;
   aspect-ratio: 3 / 4;
+  object-fit: cover;
 }
 
-/* gradient i botten på kortet */
-.landing-card__gradient {
+@media (min-width: 768px) {
+  .landing-card__img {
+    height: 480px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing-card__img {
+    height: 100%;
+  }
+}
+
+.landing-card__img-wrap::after {
+  content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg,
-    rgba(0, 0, 0, 0) 40%,
-    rgba(0, 0, 0, 0.8) 100%
-  );
+  background: rgba(17, 17, 17, 0.5);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .landing-card__content {
   position: absolute;
   left: var(--space-16);
   right: var(--space-16);
-  bottom: var(--space-16);
+
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
 
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  gap: var(--space-12);
+  align-items: center;
+  text-align: center;
+
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .landing-card__content {
+    top: auto;
+    bottom: var(--space-24);
+    transform: none;
+    align-items: flex-start;
+    text-align: left;
+  }
 }
 
 .landing-card__title {
   color: #fff;
+  margin: 0;
 }
 
 .landing-card__cta {
-  align-self: flex-start;
+  align-self: center;
+
+  padding: 6px 12px;
+  border-radius: var(--btn-radius);
+
+  background-color: var(--color-primary-600);
+  color: #fff;
+  font-size: var(--button);
 }
 
-/* gör CTA-knappen lite mindre */
-.landing-card__cta .btn {
-  padding-block: var(--space-8);
-  padding-inline: var(--space-12);
-  font-size: var(--font-caption);
+@media (min-width: 768px) {
+  .landing-card__cta {
+    align-self: flex-start;
+  }
+}
+
+.landing-card__cta:hover {
+  background-color: var(--color-primary-700);
 }

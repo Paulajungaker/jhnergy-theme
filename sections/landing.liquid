@@ -2,13 +2,24 @@
   <!-- HERO -->
   <div class="landing-hero">
     <div class="landing-hero__media">
-      {% if section.settings.hero_image %}
-        {{ section.settings.hero_image
-          | image_url: width: 2000
-          | image_tag: loading: 'lazy', class: 'landing-hero__img'
-        }}
-      {% endif %}
-    </div>
+  {% if section.settings.hero_video != blank %}
+    <video 
+      class="landing-hero__video" 
+      autoplay 
+      muted 
+      loop 
+      playsinline
+      preload="auto"
+    >
+      <source src="{{ section.settings.hero_video }}" type="video/mp4">
+    </video>
+  {% elsif section.settings.hero_image %}
+    {{ section.settings.hero_image
+      | image_url: width: 2000
+      | image_tag: loading: 'lazy', class: 'landing-hero__img'
+    }}
+  {% endif %}
+</div>
 
     <div class="landing-hero__overlay"></div>
 
@@ -21,20 +32,14 @@
         {% endif %}
 
         {% if section.settings.hero_subheading != blank %}
-          <p class="body-p landing-hero__subtitle">
+          <h3 class="heading-3 landing-hero__subtitle">
             {{ section.settings.hero_subheading }}
-          </p>
+          </h3>
         {% endif %}
 
-        {% if section.settings.hero_cta_label != blank %}
-          <a href="#landing-audience" class="btn btn--primary">
-            {{ section.settings.hero_cta_label }}
-          </a>
-        {% endif %}
-
-        <a href="#landing-audience" class="landing-hero__scroll" aria-label="Scroll down">
-          ↓
-        </a>
+       <a href="#landing-audience" class="landing-hero__scroll" aria-label="Scroll down">
+  <img src="{{ 'chevron-down.png' | asset_url }}" alt="" class="scroll-icon">
+</a>
       </div>
     </div>
   </div>
@@ -54,18 +59,16 @@
                   }}
                 {% endif %}
 
-                <div class="landing-card__gradient"></div>
-
                 <div class="landing-card__content">
                   {% if block.settings.title != blank %}
-                    <h2 class="heading-3 landing-card__title">
+                    <h2 class="heading-2 landing-card__title">
                       {{ block.settings.title }}
                     </h2>
                   {% endif %}
 
                   {% if block.settings.cta_label != blank %}
                     <div class="landing-card__cta">
-                      <span class="btn btn--primary">
+                      <span class="btn--primary">
                         {{ block.settings.cta_label }}
                       </span>
                     </div>
@@ -84,11 +87,17 @@
 {
   "name": "Landing – Hero & Audience",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero background image"
-    },
+  {
+    "type": "image_picker",
+    "id": "hero_image",
+    "label": "Hero background image"
+  },
+  {
+    "type": "url",
+    "id": "hero_video",
+    "label": "Hero background video (MP4 URL)",
+    "info": "Lämna tomt om du använder bild istället"
+  },
     {
       "type": "text",
       "id": "hero_heading",
