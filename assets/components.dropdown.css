@@ -1,0 +1,61 @@
+.dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.dropdown__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+
+  min-width: 180px;
+
+  padding: var(--dd-padding-y) var(--dd-padding-x);
+  border-radius: var(--dd-radius);
+  border: var(--dd-border);
+  background-color: var(--dd-bg);
+
+  font-family: var(--font-body);
+  font-size: var(--font-body-regular);
+  color: var(--color-neutral-text);
+
+  cursor: pointer;
+}
+
+.dropdown__button:focus-visible {
+  outline: none;
+  border: var(--dd-border-focus);
+  box-shadow: 0 0 0 1px var(--color-primary-100);
+}
+
+.dropdown__icon {
+  font-size: 12px;
+  color: var(--color-neutral-text-muted);
+}
+
+/* Menu (om du bygger en riktig custom dropdown) */
+.dropdown__menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: 180px;
+
+  background-color: var(--color-neutral-bg);
+  border-radius: var(--dd-radius);
+  border: 1px solid var(--color-neutral-border);
+  box-shadow: var(--dd-shadow-open);
+
+  padding-block: var(--space-8);
+  z-index: 20;
+}
+
+.dropdown__item {
+  padding: var(--space-8) var(--space-12);
+  font-size: var(--font-body-regular);
+  cursor: pointer;
+}
+
+.dropdown__item:hover {
+  background-color: var(--color-neutral-surface);
+}
