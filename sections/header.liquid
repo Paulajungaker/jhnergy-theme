@@ -19,7 +19,7 @@
 <style>
 @media screen and (min-width: 768px) {
   header-drawer {
-    display: none !important;
+    display: none;
   }
 }
   .header {
@@ -48,7 +48,7 @@
   @media screen and (max-width: 767px) {
     .header__icons .header__icon:not(.header__icon--cart),
     .header__icons .header__search {
-      display: none !important;
+      display: none;
     }
   }
 
@@ -76,35 +76,39 @@
     align-items: center;
     padding-inline: 24px;
     padding-block: 24px;
-    outline: 3px solid red !important;
   }
 
     .section-header .header > .header__inline-menu {
-    order: 1 !important;
+    order: 1;
+    margin-right: auto;
   }
 
-.section-header .header > .header__heading {
-  order: 2 !important;
-  justify-self: center;
-  text-align: center;
-}
+.section-header .header > .header__heading,
+  .section-header .header > .header__heading-link {
+    order: 2;
+    margin: 0;
+    text-align: center;
+  }
+
    .section-header .header > .header__icons {
     order: 3 !important;
   }
 
     .header__inline-menu {
-      display: flex !important;
+      display: flex;
       margin-right: auto;
       order: 1;
     }
 
     .header__inline-menu .list-menu {
       display: flex;
-      gap: 24px;
+      gap: 0;
     }
 
     .header__inline-menu .list-menu__item {
       margin: 0;
+      font-family: var(--font-body);
+      font-size: var(--font-body-regular);
     }
 
     .header__inline-menu .list-menu__item--link {
@@ -143,7 +147,7 @@
 
     .header__icons .small-hide,
     .header__icons .header__search.small-hide {
-      display: flex !important;
+      display: flex;
     }
 
     .header__cta {
@@ -173,27 +177,20 @@
       margin-left: -1.2rem;
     }
 
-    .header {
-    outline: 3px solid magenta !important;
-  }
   }
 
-  @media screen and (min-width: 1024px) {
-    .header.header--middle-center {
-      column-gap: 3.2rem;
-    }
-  }
+ 
 
   .header__icon .svg-wrapper svg,
 .header-drawer__menu-icon svg,
 .header__search svg {
-  width: 24px !important;
-  height: 24px !important;
+  width: 24px;
+  height: 24px;
 }
 
 header-drawer .icon-hamburger svg {
-  width: 24px !important;
-  height: 24px !important;
+  width: 24px;
+  height: 24px;
 }
 </style>
 
