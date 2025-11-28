@@ -1,0 +1,38 @@
+<section class="section section--category">
+  <div class="page-width">
+    <h1 class="category-page__title">
+      {{ section.settings.heading }}
+    </h1>
+
+    <p class="category-page__intro">
+      {{ section.settings.intro_text }}
+    </p>
+
+    <!-- Här kommer vi lägga category-korten sen -->
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category page",
+  "settings": [
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Page heading",
+      "default": "Shop by category"
+    },
+    {
+      "type": "text",
+      "id": "intro_text",
+      "label": "Intro text",
+      "default": "Explore our categories."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category page"
+    }
+  ]
+}
+{% endschema %}
