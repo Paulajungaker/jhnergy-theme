@@ -1,0 +1,284 @@
+{{ 'section-homepage.css' | asset_url | stylesheet_tag }}
+
+<section class="section section--homepage" id="homepage-top">
+  <!-- HERO -->
+  <div class="landing-hero">
+    <div class="landing-hero__media">
+      {% if section.settings.hero_video != blank %}
+        <video 
+          class="landing-hero__video" 
+          autoplay 
+          muted 
+          loop 
+          playsinline
+          preload="auto"
+        >
+          <source src="{{ section.settings.hero_video }}" type="video/mp4">
+        </video>
+      {% elsif section.settings.hero_image %}
+        {{ section.settings.hero_image
+          | image_url: width: 2000
+          | image_tag: loading: 'lazy', class: 'landing-hero__img'
+        }}
+      {% endif %}
+    </div>
+
+    <div class="landing-hero__overlay"></div>
+
+    <div class="container">
+      <div class="landing-hero__content">
+        {% if section.settings.hero_heading != blank %}
+          <h1 class="heading-1 landing-hero__title">
+            {{ section.settings.hero_heading }}
+          </h1>
+        {% endif %}
+
+        {% if section.settings.hero_subheading != blank %}
+          <h3 class="heading-3 landing-hero__subtitle">
+            {{ section.settings.hero_subheading }}
+          </h3>
+        {% endif %}
+
+        {% if section.settings.hero_cta_label != blank and section.settings.hero_cta_link != blank %}
+          <a href="{{ section.settings.hero_cta_link }}" class="btn--primary landing-hero__cta">
+            {{ section.settings.hero_cta_label }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+    <!-- BESTSELLERS -->
+  <div class="homepage-bestsellers">
+    <div class="page-width">
+      <h2 class="homepage-bestsellers__heading">
+        {{ section.settings.bestsellers_heading }}
+      </h2>
+
+      <div class="homepage-bestsellers__list">
+        {% for block in section.blocks %}
+          {% if block.type == 'bestseller' %}
+            {% assign product = block.settings.product %}
+            {% if product %}
+              <article class="bestseller-card" {{ block.shopify_attributes }}>
+                <a href="{{ product.url }}" class="bestseller-card__link">
+                  <div class="bestseller-card__image-wrap">
+                    {{ product.featured_image
+                      | image_url: width: 900
+                      | image_tag: loading: 'lazy', class: 'bestseller-card__image'
+                    }}
+                      <div class="bestseller-card__overlay">
+    <span>View product</span>
+  </div>
+                  </div>
+                  <div class="bestseller-card__content">
+                  <div class="bestseller-card__info">
+                    <h3 class="bestseller-card__title">
+                      {{ product.title }}
+                    </h3>
+                    <p class="bestseller-card__price">
+                      {{ product.price | money }}
+                    </p>
+                    </div>
+                  </div>
+                </a>
+              </article>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+<!-- PROMO SECTION -->
+<div class="homepage-promo">
+  <div class="homepage-promo__wrapper">
+
+    <div class="homepage-promo__media">
+      {% if section.settings.promo_image %}
+        {{ section.settings.promo_image
+          | image_url: width: 1200
+          | image_tag: loading: 'lazy', class: 'homepage-promo__image'
+        }}
+      {% endif %}
+    </div>
+
+    <div class="homepage-promo__card">
+      {% if section.settings.promo_heading != blank %}
+        <h2 class="homepage-promo__title">
+          {{ section.settings.promo_heading }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.promo_text != blank %}
+        <p class="homepage-promo__text">
+          {{ section.settings.promo_text }}
+        </p>
+      {% endif %}
+
+      {% if section.settings.promo_button_label != blank and section.settings.promo_button_link != blank %}
+        <a href="{{ section.settings.promo_button_link }}" class="btn--primary homepage-promo__button">
+          {{ section.settings.promo_button_label }}
+        </a>
+      {% endif %}
+    </div>
+
+  </div>
+</div>
+  <!-- SHOP BY CATEGORY -->
+  <div class="homepage-categories">
+    <div class="page-width">
+      {% if section.settings.category_heading != blank %}
+        <h2 class="homepage-categories__heading">
+          {{ section.settings.category_heading }}
+        </h2>
+      {% endif %}
+
+      <div class="homepage-categories__list">
+        {% for block in section.blocks %}
+          {% if block.type == 'category_tile' %}
+            <article class="category-card" {{ block.shopify_attributes }}>
+              <a href="{{ block.settings.link }}" class="category-card__link">
+                <div class="category-card__image-wrap">
+                  {% if block.settings.image %}
+                    {{ block.settings.image
+                      | image_url: width: 900
+                      | image_tag: loading: 'lazy', class: 'category-card__image'
+                    }}
+                  {% endif %}
+
+                  <div class="category-card__overlay">
+                    <span class="category-card__label">
+                      {{ block.settings.label }}
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Homepage",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero background image"
+    },
+    {
+      "type": "url",
+      "id": "hero_video",
+      "label": "Hero background video (MP4 URL)",
+      "info": "Lämna tomt om du använder bild istället"
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Hero heading",
+      "default": "Performance gear built for every body."
+    },
+    {
+      "type": "text",
+      "id": "hero_subheading",
+      "label": "Hero subheading",
+      "default": "Engineered for movement — designed for life."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_label",
+      "label": "CTA label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "CTA link"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "bestsellers_heading",
+      "label": "Bestsellers heading",
+      "default": "Bestsellers picked by athletes"
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_image",
+      "label": "Promo image (Men hero)"
+    },
+    {
+      "type": "text",
+      "id": "promo_heading",
+      "label": "Promo heading",
+      "default": "Designed for Men Who Push Limits"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo text",
+      "default": "Lightweight fabrics. Breathable knits. Built to move."
+    },
+    {
+      "type": "text",
+      "id": "promo_button_label",
+      "label": "Promo button label",
+      "default": "Shop Bestsellers"
+    },
+    {
+      "type": "url",
+      "id": "promo_button_link",
+      "label": "Promo button link"
+    },
+    {
+  "type": "inline_richtext",
+  "id": "category_heading",
+  "label": "Category heading",
+  "default": "Shop by category"
+}
+  ],
+ "blocks": [
+  {
+    "type": "bestseller",
+    "name": "Bestseller product",
+    "settings": [
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Product"
+      }
+    ]
+  },
+  {
+    "type": "category_tile",
+    "name": "Category tile",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Category image"
+      },
+      {
+        "type": "text",
+        "id": "label",
+        "label": "Label",
+        "default": "Shirts"
+      },
+      {
+        "type": "url",
+        "id": "link",
+        "label": "Link"
+      }
+    ]
+  }
+],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Homepage"
+    }
+  ]
+}
+{% endschema %}
