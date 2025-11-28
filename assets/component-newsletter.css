@@ -52,12 +52,14 @@
 }
 
 .newsletter-form__button:focus-visible {
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.4rem rgba(var(--color-foreground));
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)),
+    0 0 0 0.4rem rgba(var(--color-foreground));
   background-color: rgb(var(--color-background));
 }
 
 .newsletter-form__button:focus {
-  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)), 0 0 0 0.4rem rgba(var(--color-foreground));
+  box-shadow: 0 0 0 0.3rem rgb(var(--color-background)),
+    0 0 0 0.4rem rgba(var(--color-foreground));
   background-color: rgb(var(--color-background));
 }
 
@@ -66,6 +68,106 @@
   background-color: inherit;
 }
 
-.newsletter-form__button .icon {
-  width: 1.5rem;
+/* ================================
+   Custom newsletter – mobile first
+   ================================ */
+
+/* Wrapper around input + button */
+.footer .newsletter-form__field-wrapper {
+  width: 100%;
+  max-width: 360px;
+}
+
+/* Remove "box" around input" */
+.footer .newsletter-form__field-wrapper .field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Remove black box behind input + button */
+.footer .newsletter-form__field-wrapper .field::before,
+.footer .newsletter-form__field-wrapper .field::after {
+  border: none;
+  box-shadow: none;
+}
+
+/* The input field */
+.footer .newsletter-form__field-wrapper .field__input {
+  width: 205px;
+  padding: var(--space-12);
+  border: 1px solid var(--color-neutral-border);
+  border-radius: var(--radius-8);
+}
+
+/* Subscribe button */
+.footer .newsletter-form__field-wrapper .field__button {
+  position: static;
+  width: auto;
+  height: 44px;
+  margin: 0;
+  right: auto;
+  top: auto;
+  z-index: 1;
+  padding: 0 16px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--color-primary-600);
+  color: var(--color-neutral-bg);
+  border-radius: var(--radius-8);
+  border: none;
+  font-weight: 500;
+  font-size: var(--button);
+  cursor: pointer;
+}
+
+.footer .field__input::placeholder {
+  color: var(--color-neutral-textMuted);
+  opacity: 1;
+  font-family: var(--font-body);
+  font-size: var(--font-caption);
+}
+
+.footer .newsletter-form__field-wrapper .field__label {
+  display: none;
+}
+
+/* ============================
+   TABLET – Newsletter layout
+   ============================ */
+
+@media (min-width: 768px) {
+  .footer .newsletter-form__field-wrapper {
+    max-width: 420px;
+  }
+
+  .footer .newsletter-form__field-wrapper .field__input {
+    width: 272px;
+    height: 40px;
+  }
+
+  .footer .newsletter-form__field-wrapper .field__button {
+    height: 40px;
+  }
+}
+
+/* ============================
+   DESKTOP – Newsletter layout
+   ============================ */
+
+@media (min-width: 1024px) {
+  .footer .newsletter-form__field-wrapper .field__input {
+    height: 44px;
+  }
+
+  .footer .newsletter-form__field-wrapper .field__button {
+    height: 44px;
+  }
 }

@@ -13,19 +13,80 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "footer_column_xdKPCe": {
+          "type": "footer_column",
+          "settings": {
+            "heading": "Help",
+            "link_1_label": "FAQ",
+            "link_1_url": "https://jhnergy.myshopify.com/",
+            "link_2_label": "My orders",
+            "link_2_url": "https://jhnergy.myshopify.com/",
+            "link_3_label": "Shipping & Returns",
+            "link_3_url": "https://jhnergy.myshopify.com/",
+            "link_4_label": "Link 4",
+            "link_4_url": ""
+          }
+        },
+        "footer_column_kzmwTd": {
+          "type": "footer_column",
+          "settings": {
+            "heading": "My account",
+            "link_1_label": "Login",
+            "link_1_url": "https://jhnergy.myshopify.com/",
+            "link_2_label": "Register",
+            "link_2_url": "https://jhnergy.myshopify.com/",
+            "link_3_label": "Link 3",
+            "link_3_url": "",
+            "link_4_label": "Link 4",
+            "link_4_url": ""
+          }
+        },
+        "footer_column_JYx6mJ": {
+          "type": "footer_column",
+          "settings": {
+            "heading": "Featured",
+            "link_1_label": "Offers",
+            "link_1_url": "https://jhnergy.myshopify.com/",
+            "link_2_label": "T-shirts",
+            "link_2_url": "https://jhnergy.myshopify.com/",
+            "link_3_label": "Protein Powders",
+            "link_3_url": "https://jhnergy.myshopify.com/",
+            "link_4_label": "Link 4",
+            "link_4_url": ""
+          }
+        },
+        "social_custom_f8Qwan": {
+          "type": "social_custom",
+          "settings": {
+            "icon_instagram": "shopify://shop_images/Instagram.svg",
+            "url_instagram": "https://jhnergy.myshopify.com/",
+            "icon_facebook": "shopify://shop_images/Facebook.svg",
+            "url_facebook": "https://jhnergy.myshopify.com/",
+            "icon_x": "shopify://shop_images/X.svg",
+            "url_x": "https://jhnergy.myshopify.com/"
+          }
+        }
+      },
+      "block_order": [
+        "footer_column_xdKPCe",
+        "footer_column_kzmwTd",
+        "footer_column_JYx6mJ",
+        "social_custom_f8Qwan"
+      ],
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
+        "enable_follow_on_shop": false,
         "show_social": true,
         "enable_country_selector": true,
         "enable_language_selector": true,
-        "payment_enable": true,
+        "payment_enable": false,
         "show_policy": true,
         "margin_top": 0,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     }
   },
