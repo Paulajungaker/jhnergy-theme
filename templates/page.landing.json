@@ -1,9 +1,60 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "landing-top": {
       "type": "landing",
-      "settings": {}
+      "blocks": {
+        "card_wUkdfd": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/05172848-5119-4AB6-8D78-2AABC1CEAFBB.jpg",
+            "title": "Men",
+            "cta_label": "Shop now",
+            "link": ""
+          }
+        },
+        "card_yQ3ewK": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/9B7BA46B-4E93-43AD-906A-C19D407946E1.png",
+            "title": "Women",
+            "cta_label": "Shop now",
+            "link": ""
+          }
+        },
+        "card_4eixMA": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/FullSizeRender_f607aa87-004a-4294-b606-af39bc69fbb7.jpg",
+            "title": "Supplement",
+            "cta_label": "Shop now",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_wUkdfd",
+        "card_yQ3ewK",
+        "card_4eixMA"
+      ],
+      "settings": {
+        "hero_image": "shopify://shop_images/victor-freitas-Yuv-iwByVRQ-unsplash.jpg",
+        "hero_video": "",
+        "hero_heading": "Performance gear built for every body.",
+        "hero_subheading": "Engineered for movement — designed for life.",
+        "hero_cta_label": "Shop now"
+      }
     }
   },
-  "order": ["landing-top"]
+  "order": [
+    "landing-top"
+  ]
 }

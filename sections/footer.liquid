@@ -60,6 +60,7 @@
               assign footer_grid_class = 'grid--3-col-tablet'
             endif
           -%}
+          {% assign footer_social_markup = '' %}
           <div
             class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
             {% if settings.animations_reveal_on_scroll %}
@@ -67,40 +68,131 @@
             {% endif %}
           >
             {%- for block in section.blocks -%}
-              <div
-                class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
-              >
-                {%- if block.settings.heading != blank -%}
-                  <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
-                {%- endif -%}
+              {%- if block.type == 'social_custom' -%}
+                {% capture footer_social_markup %}
+                  <div class="footer-social-custom">
+                    {% if block.settings.icon_instagram != blank and block.settings.url_instagram != blank %}
+                      <a href="{{ block.settings.url_instagram }}" target="_blank" class="footer-social-icon">
+                        <img src="{{ block.settings.icon_instagram | image_url: width: 40 }}" alt="Instagram">
+                      </a>
+                    {% endif %}
 
-                {%- case block.type -%}
-                  {%- when '@app' -%}
-                    {% render block %}
-                  {%- when 'text' -%}
-                    <div class="footer-block__details-content rte">
-                      {{ block.settings.subtext }}
-                    </div>
-                  {%- when 'link_list' -%}
-                    {%- if block.settings.menu != blank -%}
-                      <ul class="footer-block__details-content list-unstyled">
-                        {%- for link in block.settings.menu.links -%}
+                    {% if block.settings.icon_facebook != blank and block.settings.url_facebook != blank %}
+                      <a href="{{ block.settings.url_facebook }}" target="_blank" class="footer-social-icon">
+                        <img src="{{ block.settings.icon_facebook | image_url: width: 40 }}" alt="Facebook">
+                      </a>
+                    {% endif %}
+
+                    {% if block.settings.icon_x != blank and block.settings.url_x != blank %}
+                      <a href="{{ block.settings.url_x }}" target="_blank" class="footer-social-icon">
+                        <img src="{{ block.settings.icon_x | image_url: width: 40 }}" alt="X">
+                      </a>
+                    {% endif %}
+                  </div>
+                {% endcapture %}
+              {%- else -%}
+                <div
+                  class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                  {{ block.shopify_attributes }}
+                  {% if settings.animations_reveal_on_scroll %}
+                    data-cascade
+                    style="--animation-order: {{ forloop.index }};"
+                  {% endif %}
+                >
+                  {%- if block.settings.heading != blank -%}
+                    <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
+                  {%- endif -%}
+
+                  {%- case block.type -%}
+                    {%- when '@app' -%}
+                      {% render block %}
+                    {%- when 'text' -%}
+                      <div class="footer-block__details-content rte">
+                        {{ block.settings.subtext }}
+                      </div>
+                    {%- when 'link_list' -%}
+                      {%- if block.settings.menu != blank -%}
+                        <ul class="footer-block__details-content list-unstyled">
+                          {%- for link in block.settings.menu.links -%}
+                            <li>
+                              <a
+                                href="{{ link.url }}"
+                                class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
+                              >
+                                {{ link.title | escape }}
+                              </a>
+                            </li>
+                          {%- endfor -%}
+                        </ul>
+                      {%- endif -%}
+                    {%- when 'footer_column' -%}
+                    <div class="footer-block__details-content">
+                      <ul class="list-unstyled">
+                        {%- if block.settings.link_1_url != blank and block.settings.link_1_label != blank -%}
                           <li>
                             <a
-                              href="{{ link.url }}"
-                              class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
+                              href="{{ block.settings.link_1_url }}"
+                              class="link link--text list-menu__item list-menu__item--link"
                             >
-                              {{ link.title | escape }}
+                              {{ block.settings.link_1_label }}
                             </a>
                           </li>
-                        {%- endfor -%}
+                        {%- endif -%}
+
+                        {%- if block.settings.link_2_url != blank and block.settings.link_2_label != blank -%}
+                          <li>
+                            <a
+                              href="{{ block.settings.link_2_url }}"
+                              class="link link--text list-menu__item list-menu__item--link"
+                            >
+                              {{ block.settings.link_2_label }}
+                            </a>
+                          </li>
+                        {%- endif -%}
+
+                        {%- if block.settings.link_3_url != blank and block.settings.link_3_label != blank -%}
+                          <li>
+                            <a
+                              href="{{ block.settings.link_3_url }}"
+                              class="link link--text list-menu__item list-menu__item--link"
+                            >
+                              {{ block.settings.link_3_label }}
+                            </a>
+                          </li>
+                        {%- endif -%}
+
+                        {%- if block.settings.link_4_url != blank and block.settings.link_4_label != blank -%}
+                          <li>
+                            <a
+                              href="{{ block.settings.link_4_url }}"
+                              class="link link--text list-menu__item list-menu__item--link"
+                            >
+                              {{ block.settings.link_4_label }}
+                            </a>
+                          </li>
+                        {%- endif -%}
                       </ul>
-                    {%- endif -%}
+                    </div>
+                  {%- when 'social_custom' -%}
+                    <div class="footer-social-custom">
+                      {% if block.settings.icon_instagram != blank and block.settings.url_instagram != blank %}
+                        <a href="{{ block.settings.url_instagram }}" target="_blank" class="footer-social-icon">
+                          <img src="{{ block.settings.icon_instagram | image_url: width: 40 }}" alt="Instagram">
+                        </a>
+                      {% endif %}
+
+                      {% if block.settings.icon_facebook != blank and block.settings.url_facebook != blank %}
+                        <a href="{{ block.settings.url_facebook }}" target="_blank" class="footer-social-icon">
+                          <img src="{{ block.settings.icon_facebook | image_url: width: 40 }}" alt="Facebook">
+                        </a>
+                      {% endif %}
+
+                      {% if block.settings.icon_x != blank and block.settings.url_x != blank %}
+                        <a href="{{ block.settings.url_x }}" target="_blank" class="footer-social-icon">
+                          <img src="{{ block.settings.icon_x | image_url: width: 40 }}" alt="X">
+                        </a>
+                      {% endif %}
+                    </div>
                   {%- when 'brand_information' -%}
                     <div class="footer-block__brand-info">
                       {%- if settings.brand_image != blank -%}
@@ -155,6 +247,7 @@
                     </div>
                 {%- endcase -%}
               </div>
+              {%- endif -%}
             {%- endfor -%}
           </div>
         {%- endif -%}
@@ -191,23 +284,21 @@
                       {% elsif form.posted_successfully? %}
                         aria-describedby="ContactFooter-success"
                       {% endif %}
-                      placeholder="{{ 'newsletter.label' | t }}"
+                      placeholder="Email"
                       required
                     >
                     <label class="field__label" for="NewsletterForm--{{ section.id }}">
-                      {{ 'newsletter.label' | t }}
+                      Email
                     </label>
-                    <button
-                      type="submit"
-                      class="newsletter-form__button field__button"
-                      name="commit"
-                      id="Subscribe"
-                      aria-label="{{ 'newsletter.button_label' | t }}"
-                    >
-                      <span class="svg-wrapper">
-                        {{- 'icon-arrow.svg' | inline_asset_content -}}
-                      </span>
-                    </button>
+                 <button
+  type="submit"
+  class="newsletter-form__button field__button footer-newsletter__button"
+  name="commit"
+  id="Subscribe"
+  aria-label="{{ 'newsletter.button_label' | t }}"
+>
+  Subscribe
+</button>
                   </div>
                   {%- if form.errors -%}
                     <small class="newsletter-form__message form__message" id="ContactFooter-error">
@@ -241,11 +332,8 @@
               {{ shop | login_button: action: 'follow' }}
             </div>
           {%- endif -%}
-
-          {%- if section.settings.show_social and has_social_icons -%}
-            {%- render 'social-icons', class: 'footer__list-social' -%}
-          {%- endif -%}
         </div>
+                {{ footer_social_markup }}
       </div>
     {%- endunless -%}
   {%- endif -%}
@@ -344,6 +432,42 @@
           "default": "footer",
           "label": "t:sections.footer.blocks.link_list.settings.menu.label"
         }
+      ]
+    },
+    {
+      "type": "footer_column",
+      "name": "Footer column (custom)",
+      "settings": [
+        {
+          "type": "inline_richtext",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Help"
+        },
+
+       { "type": "text", "id": "link_1_label", "label": "Link 1 label", "default": "Link 1" },
+       { "type": "url",  "id": "link_1_url",   "label": "Link 1 URL" },
+
+{ "type": "text", "id": "link_2_label", "label": "Link 2 label", "default": "Link 2" },
+{ "type": "url",  "id": "link_2_url",   "label": "Link 2 URL" },
+
+{ "type": "text", "id": "link_3_label", "label": "Link 3 label", "default": "Link 3" },
+{ "type": "url",  "id": "link_3_url",   "label": "Link 3 URL" },
+
+{ "type": "text", "id": "link_4_label", "label": "Link 4 label", "default": "Link 4" },
+{ "type": "url",  "id": "link_4_url",   "label": "Link 4 URL" }
+      ]
+    },
+      {
+      "type": "social_custom",
+      "name": "Social icons (custom)",
+      "settings": [
+        { "type": "image_picker", "id": "icon_instagram", "label": "Instagram icon" },
+        { "type": "url", "id": "url_instagram", "label": "Instagram URL" },
+        { "type": "image_picker", "id": "icon_facebook", "label": "Facebook icon" },
+        { "type": "url", "id": "url_facebook", "label": "Facebook URL" },
+        { "type": "image_picker", "id": "icon_x", "label": "X icon" },
+        { "type": "url", "id": "url_x", "label": "X URL" }
       ]
     },
     {
