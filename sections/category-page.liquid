@@ -1,14 +1,80 @@
+{{ 'section-category.css' | asset_url | stylesheet_tag }}
+{{ 'section-category.js'  | asset_url | script_tag }}
+
 <section class="section section--category">
-  <div class="page-width">
+  <div class="page-width category-page">
+
+    {% assign current_collection = section.settings.collection %}
+
+    <div class="category-breadcrumb">
+      <a href="/" class="breadcrumb__link">Home</a>
+      <span class="breadcrumb__separator">/</span>
+
+      <a href="/collections" class="breadcrumb__link">Shop</a>
+      <span class="breadcrumb__separator">/</span>
+
+      <span class="breadcrumb__current">
+        {{ section.settings.heading }}
+      </span>
+    </div>
+
     <h1 class="category-page__title">
       {{ section.settings.heading }}
     </h1>
 
-    <p class="category-page__intro">
-      {{ section.settings.intro_text }}
-    </p>
+    {% if section.settings.show_intro_count and current_collection %}
+      {% assign count = current_collection.products_count %}
+      {% assign start = 1 %}
+      {% assign end = count %}
 
-    <!-- Här kommer vi lägga category-korten sen -->
+      <p class="category-page__intro">
+        Showing {{ start }}–{{ end }} of {{ count }} result{% if count != 1 %}s{% endif %}
+      </p>
+    {% endif %}
+
+    <div class="category-page__products">
+
+      {% if current_collection and current_collection.products_count > 0 %}
+        <div class="category-products-grid">
+          {% for product in current_collection.products %}
+            {% assign product_category = product.type | handle %}
+
+            <article
+              class="category-product-card"
+              data-category="{{ product_category }}"
+            >
+              <a href="{{ product.url }}" class="category-product-card__link">
+                {% if product.featured_image %}
+                  <div class="category-product-card__image-wrap">
+                    {{ product.featured_image
+                      | image_url: width: 800
+                      | image_tag: loading: 'lazy', class: 'category-product-card__image'
+                    }}
+
+                    <div class="category-product-card__overlay">
+                      <span>View product</span>
+                    </div>
+                  </div>
+                {% endif %}
+
+
+                <div class="category-product-card__info">
+                  <h3 class="category-product-card__title">
+                    {{ product.title }}
+                  </h3>
+                  <p class="category-product-card__price">
+                    {{ product.price | money }}
+                  </p>
+                </div>
+              </a>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No products found in this category</p>
+      {% endif %}
+    </div>
+
   </div>
 </section>
 
@@ -20,13 +86,18 @@
       "type": "inline_richtext",
       "id": "heading",
       "label": "Page heading",
-      "default": "Shop by category"
+      "default": "Men’s Training"
     },
+   {
+  "type": "checkbox",
+  "id": "show_intro_count",
+  "label": "Show product count",
+  "default": true
+},
     {
-      "type": "text",
-      "id": "intro_text",
-      "label": "Intro text",
-      "default": "Explore our categories."
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection for this page"
     }
   ],
   "presets": [
