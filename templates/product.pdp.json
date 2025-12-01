@@ -1,0 +1,10 @@
+{
+  "name": "Product PDP",
+  "sections": {
+    "main": {
+      "type": "product-pdp",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}
