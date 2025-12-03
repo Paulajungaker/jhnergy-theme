@@ -17,51 +17,54 @@
 {%- endif -%}
 
 <style>
+
+.header:not(.drawer-menu).page-width {
+padding: 24px;
+
+}
+
+.header__heading-link {
+  padding: 0;
+}
+
+.header__icons {
+  position: absolute;
+  top: 50%;
+  right: 70px;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+}
+
+header-drawer details summary.header__icon {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .header__icons .header__icon:not(.header__icon--cart),
+  .header__icons .header__search {
+    display: none;
+  }
+}
+
 @media screen and (min-width: 768px) {
   header-drawer {
     display: none;
   }
 }
-  .header {
-    position: relative;
-    padding-inline: 1.6rem;
-  }
 
-  .header__heading {
-    text-align: left;
-  }
-
-  .header__heading-link {
-    justify-content: flex-start;
-  }
-
-  .header__icons {
-    position: absolute;
-    top: 50%;
-    right: 3.6rem;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
-  @media screen and (max-width: 767px) {
-    .header__icons .header__icon:not(.header__icon--cart),
-    .header__icons .header__search {
-      display: none;
-    }
-  }
-
+header-drawer .header__icon {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+}
   .header__cta {
     display: none;
-  }
-
-  header-drawer {
-    position: absolute;
-    top: 50%;
-    right: 24px;
-    transform: translateY(-50%);
-    margin-left: 0;
   }
 
   .list-menu {
@@ -179,8 +182,6 @@
 
   }
 
- 
-
   .header__icon .svg-wrapper svg,
 .header-drawer__menu-icon svg,
 .header__search svg {
@@ -192,6 +193,7 @@ header-drawer .icon-hamburger svg {
   width: 24px;
   height: 24px;
 }
+
 </style>
 
 {%- style -%}
